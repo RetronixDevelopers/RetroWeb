@@ -1,5 +1,26 @@
-let flip = document.getElementById('flip-area');
+const ip = document.getElementById('ip');
+const modal = document.getElementById('ip-modal');
+const modalText = document.getElementById('ip-modal-text');
 
-flip.onmouseover = setTimeout(() => {
-  flip.innerText = 'play.retronixmc.net';
-}, 1000);
+ip.onmouseover = event => {
+  modal.style.visibility = 'visible';
+};
+
+ip.onmouseout = event => {
+  modal.style.visibility = 'hidden';
+};
+
+ip.onclick = event => {
+  //   if (!event.target.matches('#ip')) return;
+
+  if (!navigator.clipboard) return;
+
+  try {
+    navigator.clipboard.writeText(event.target.innerText).then(() => {
+      modalText.innerText = 'Copied! ✅';
+    });
+  } catch (er) {
+    modalText.innerText = 'Copy Failed ❌';
+    console.error(er);
+  }
+};
